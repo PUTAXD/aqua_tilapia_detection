@@ -4,19 +4,24 @@ import numpy as np
 from ultralytics import YOLO
 from sort import Sort
 from utils import get_distance
+import csv
+import os
+
 
 class VideoProcessor:
-    def __init__(self, model_path, video_path, max_age=5, min_hits=2, iou_threshold=0.2, skip_frame=5, track_time_window=1.0):
+    def __init__(self, model_path, video_path, csv_output_path, max_age=5, min_hits=2, iou_threshold=0.2, skip_frame=5, track_time_window=1.0):
         self.model = YOLO(model_path)
         self.cap = cv2.VideoCapture(video_path)
-        self.tracker = Sort(max_age=max_age, min_hits=min_hits, iou_threshold=iou_threshold)
+        self.tracker = Sort(max_age=max_age, min_hits=min_hits,
+                            iou_threshold=iou_threshold)
         self.skip_frame = skip_frame
         self.track_time_window = track_time_window
         self.object_tracks = {}
         self.speed_log = []
-        self.fish_positions_log = []
+        self.fish_positions_log = []  # Still keep for plotting at the end
         self.last_log_time = time.time()
         self.frame_count = 0
+        self.csv_output_path = csv_output_path
 
     def process_video(self):
         while True:
@@ -35,9 +40,13 @@ class VideoProcessor:
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 print("🛑 Interrupted by user.")
                 break
-        
+
         self.cap.release()
         cv2.destroyAllWindows()
+        # Save fish positions to CSV directly
+        from data_handler import save_fish_positions_to_csv
+        save_fish_positions_to_csv(
+            self.fish_positions_log, self.csv_output_path)
         return self.fish_positions_log, self.speed_log
 
     def _process_frame(self, frame):
@@ -60,6 +69,7 @@ class VideoProcessor:
         for x1, y1, x2, y2, obj_id in tracked_objects:
             cx, cy = int((x1 + x2) / 2), int((y1 + y2) / 2)
 
+            # Log to internal list for eventual plotting
             self.fish_positions_log.append((now, int(obj_id), cx, cy))
 
             if obj_id not in self.object_tracks:
