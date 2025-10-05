@@ -107,9 +107,11 @@ You can modify the following constants in `src/main.py` to adjust the behavior:
 - `OUTPUT_GRAPH_SPEED`: Path for the average speed graph.
 - `OUTPUT_GRAPH_TRAJECTORY`: Path for the fish trajectories graph.
 
----
-
 ## Training the Model
+
+```
+If you do not have a pre-trained model for detecting fish, you will need to train one. The following section outlines the process for training a custom YOLO model.
+```
 
 The `train/train.py` script provides a streamlined process for training a custom YOLO (You Only Look Once) object detection model. This is crucial for adapting the detection capabilities to specific types of fish or unique environmental conditions in your video streams. The script handles both dataset acquisition from Roboflow and the subsequent model training.
 
