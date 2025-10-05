@@ -63,8 +63,6 @@ aqua_tilapia_detection/
     pip install -r requirements.txt
     ```
 
-    (Note: A `requirements.txt` file is not present in the provided directory structure. You may need to create one based on the imports in `src/main.py` and `src/video_processor.py`. Key dependencies include `ultralytics`, `opencv-python`, `numpy`, `matplotlib`.)
-
 3.  **Download the YOLO model:**
     Ensure that `models/best.pt` is available. If not, you will need to train your own YOLO model or download a pre-trained one compatible with your detection task.
 
