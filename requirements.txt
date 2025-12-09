@@ -3,3 +3,5 @@ numpy
 ultralytics
 roboflow
 matplotlib
+filterpy
+pandas
