@@ -1,6 +1,7 @@
 # Aqua Tilapia Detection and Tracking
 
-![Example Tracking](images/example_tracking.png)
+![Tilapia Bytetrack&#39;](https://github.com/user-attachments/assets/7c0ca184-4dd7-4021-ab35-06e9b004d32c)
+
 
 This project provides a solution for detecting and tracking Tilapia fish in video streams, calculating their movement and speed. It leverages state-of-the-art object detection (YOLO) and multi-object tracking (SORT) algorithms to provide real-time insights into fish behavior.
 
