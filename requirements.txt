@@ -3,3 +3,7 @@ numpy
 ultralytics
 roboflow
 matplotlib
+filterpy
+pandas
+supervision
+lapx
